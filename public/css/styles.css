@@ -1,0 +1,18 @@
+.uk-accordion-title {
+    background-color: #603f83ff;
+    color: #c7d3d4ff;
+    height: 48px;
+    padding-top: 1%;
+    padding-left: 1%;
+}
+
+.uk-accordion-content {
+    background-color: #c7d3d4ff;
+    padding: 1%;
+    color: #603f83ff;
+}
+
+.uk-accordion-title:focus,
+.uk-accordion-title:hover {
+    color: #c7d3d4ff;
+}
