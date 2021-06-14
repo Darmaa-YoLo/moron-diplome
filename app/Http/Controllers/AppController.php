@@ -15,13 +15,20 @@ class AppController extends Controller
     return view('pages.home');
   }
 
-  public function showProjectsPage()
+  public function showProjectsPage(Request $request)
   {
     $user_id = Auth::user()->id;
-    $locs = Loc::where('user_id', $user_id)->get();
-    $usecases = UseCase::where('user_id', $user_id)->get();
-    $functions = FunctionPoint::where('user_id', $user_id)->get();
-
+    $filter = $request->input('filter');
+  
+    if ($filter) {
+      $locs = Loc::where('user_id', $user_id)->where('title',$filter)->get();
+      $usecases = UseCase::where('user_id', $user_id)->where('title',$filter)->get();
+      $functions = FunctionPoint::where('user_id', $user_id)->where('title',$filter)->get();
+    } else {
+      $locs = Loc::where('user_id', $user_id)->get();
+      $usecases = UseCase::where('user_id', $user_id)->get();
+      $functions = FunctionPoint::where('user_id', $user_id)->get();
+    }
     return view('pages.projects', [
       'locs' => $locs,
       'usecases' => $usecases,

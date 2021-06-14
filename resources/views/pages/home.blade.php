@@ -85,7 +85,50 @@
         <li>
           <form class="uk-form-horizontal" method="POST">
             @csrf
+            <div class="uk-margin uk-text-bold">
+              Энэхүү аргаар бодохдоо нийт кодны мөрийн хэмжээнээс хамааран доорх 3 төлөвт харгалзах утгыг ашиглан тооцоолдог.
+            </div>
+            <table class="uk-table uk-table-divider">
+              <thead>
+                <tr>
+                  <th>Төлөв</th>
+                  <th>a</th>
+                  <th>b</th>
+                  <th>c</th>
+                  <th>d</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Organic (2-50 LOC)</td>
+                  <td>2.4</td>
+                  <td>1.05</td>
+                  <td>2.5</td>
+                  <td>0.38</td>
+                </tr>
+                <tr>
+                  <td>Semi Detached (50-300 LOC)</td>
+                  <td>3.0</td>
+                  <td>1.12</td>
+                  <td>2.5</td>
+                  <td>0.35</td>
+                </tr>
+                <tr>
+                  <td>Embedded (+300 LOC)</td>
+                  <td>3.6</td>
+                  <td>1.2</td>
+                  <td>2.5</td>
+                  <td>0.32</td>
+                </tr>
+              </tbody>
+            </table>
 
+            <div class="uk-margin uk-text-bold">
+              Хүн-сар = a(LOC)<sup>b</sup><br>
+              Хугацаа = c(хүн-сар) <sup>d</sup><br>
+              Хүн хүч = Хүн-сар / Хугацаа
+            </div>
+            <hr class="uk-divider-icon">
             <div class="uk-margin">
               <label class="uk-form-label" for="loc">LOC хэмжээ</label>
               <div class="uk-form-controls">
@@ -93,7 +136,7 @@
               </div>
             </div>
 
-            <button onclick="calculateLoc({{  auth()->user()->id}})" class="uk-button uk-button-default uk-margin-small-right uk-text-right" type="button" uk-toggle="target: #modal-example">Тооцолох</button>
+            <button onclick="calculateLoc({{  auth()->user()->id}})" class="uk-button uk-button-default uk-margin-small-right uk-text-right" type="button" uk-toggle="target: #modal-example">Тооцоолох</button>
 
             <div id="modal-example" uk-modal>
               <div class="uk-modal-dialog uk-modal-body">
@@ -111,6 +154,9 @@
         <li>
           <form class="uk-form-horizontal" method="POST">
             @csrf
+            <div class="uk-margin uk-text-bold">
+              Эхлээд UUCW олох ба ингэхдээ: (Энгийн use-case тоо х 5) + (Дундаж use-case тоо х 10) + (Төвөгтэй use-case тоо х 15)
+            </div>
             <div class="uk-margin">
               <label class="uk-form-label" for="simpleUseCase">Энгийн Use Case-ийн тоо</label>
               <div class="uk-form-controls">
@@ -128,6 +174,10 @@
               <div class="uk-form-controls">
                 <input class="uk-input" type='number' id="complexUseCase">
               </div>
+            </div>
+
+            <div class="uk-margin uk-text-bold">
+              Дараа нь UAW олох ба ингэхдээ: (Энгийн actor тоо х 1) + (Дундаж actor тоо х 2) + (Төвөгтэй actor тоо х 15)
             </div>
 
             <div class="uk-margin">
@@ -177,6 +227,11 @@
             'Программчлалын хэлний төвөгтэй байдал'
             ])
 
+            <div class="uk-margin uk-text-bold">
+              Дараа нь TCF олох ба ингэхдээ доорх шаардлагуудыг системд хэр их нөлөөтэйг 0-5
+              хүртэл үнэлэх ба үнэлгээний нийлбэр нь TF болох бөгөөд TCF=0.6 + (TF / 100)
+            </div>
+
             @for ($i = 0; $i < 13; $i++) <div class="uk-margin">
               <label class="uk-form-label " style="width: 500px !important;" for="t{{ $i+1 }}">{{$questionT[$i]}}</label>
               <div class="uk-form-controls ">
@@ -193,6 +248,11 @@
     @endfor
 
     <hr class="uk-divider-icon">
+    <div class="uk-margin uk-text-bold">
+      Дараа нь ECF олох ба ингэхдээ мөн доорх шаардлагуудыг системд хэр их нөлөөтэйг 0-5
+      хүртэл үнэлэх ба үнэлгээний нийлбэр нь EF болох бөгөөд ECF=1.4 + (-0.03 x EF) <br><br>
+      Эцэст нь UCP нь UCP = (UUCW + UAW) x TCF x ECF болно.
+    </div>
 
     @for ($i = 0; $i < 8; $i++) <div class="uk-margin">
       <label class="uk-form-label " style="width: 500px !important;" for="e{{ $i+1 }}">{{$questionE[$i]}}</label>
@@ -211,7 +271,7 @@
 
 
 
-  <button onclick="calculateUseCase({{  auth()->user()->id}})" uk-toggle="target: #use-case-modal" class="uk-button uk-button-default uk-margin-small-right uk-text-right" type="button">Тооцолох</button>
+  <button onclick="calculateUseCase({{  auth()->user()->id}})" uk-toggle="target: #use-case-modal" class="uk-button uk-button-default uk-margin-small-right uk-text-right" type="button">Тооцоолох</button>
 
   <div id="use-case-modal" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
@@ -229,6 +289,54 @@
   <li>
     <form class="uk-form-horizontal" method="POST">
       @csrf
+      <div class="uk-margin uk-text-bold">
+        <div class="uk-margin uk-text-bold">
+          Энэхүү аргаар бодохдоо эхлээд эхний хүснэгтийн утгуудаар, дараагийн хүснэгтэнд оруулсан утгыг үржүүлэн тус бүрийг нэмэн<br>
+          нийт UFP олдог.
+        </div>
+        <table class="uk-table uk-table-divider">
+          <thead>
+            <tr>
+              <th>Функцийн нэгжүүд</th>
+              <th>Энгийн</th>
+              <th>Дундаж</th>
+              <th>Төвөгтэй</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Гадаад оролтууд (EI)</td>
+              <td>3</td>
+              <td>4</td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td>Гадаад гаралтууд (EO)</td>
+              <td>4</td>
+              <td>5</td>
+              <td>7</td>
+            </tr>
+            <tr>
+              <td>Гадаад лавлагаанууд (EQ)</td>
+              <td>3</td>
+              <td>4</td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td>Дотоод логик файлууд (ILF)</td>
+              <td>7</td>
+              <td>10</td>
+              <td>15</td>
+            </tr>
+            <tr>
+              <td>Гадаад интерфэйс файлууд (EIF)</td>
+              <td>5</td>
+              <td>7</td>
+              <td>10</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <table class="uk-table">
         <thead>
           <tr>
@@ -294,7 +402,11 @@
       ])
 
       <hr class="uk-divider-icon">
-
+      <div class="uk-margin uk-text-bold">
+        Дараа нь доорх хүчин зүйлсийн хүснэгтээс харгалзах үзүүлэлтүүд нь 0-5 оноо өгөн тэдгээрийгээ нийлүүлэн F-ээ олно. <br>
+        Ингээд CAF олохдоо CAF= 0.65 + (0.01 x F) <br><br>
+        Эцэст нь FP олохдоо UFP x CAF гэж бодно.
+      </div>
       @for ($i = 0; $i < 14; $i++) <div class="uk-margin">
         <label class="uk-form-label " style="width: 700px !important;" for="fp{{ $i+1 }}">{{$questionFP[$i]}}</label>
         <div class="uk-form-controls ">
@@ -310,7 +422,7 @@
         </div>
         @endfor
 
-        <button onclick="calculateFunctionPoint({{  auth()->user()->id}})" uk-toggle="target: #function-modal" class="uk-button uk-button-default uk-margin-small-right uk-text-right" type="button">Тооцолох</button>
+        <button onclick="calculateFunctionPoint({{  auth()->user()->id}})" uk-toggle="target: #function-modal" class="uk-button uk-button-default uk-margin-small-right uk-text-right" type="button">Тооцоолох</button>
 
         <div id="function-modal" uk-modal>
           <div class="uk-modal-dialog uk-modal-body">

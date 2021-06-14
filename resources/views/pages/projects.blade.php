@@ -3,7 +3,17 @@
 @section('title','Миний төслүүд')
 
 @section('content')
-
+<div class="uk-section uk-section-default">
+    <div class="uk-container">
+        <div class="uk-text-center uk-article-title">Төслийн нэрээр хайлт хийх</div>
+        <div class="uk-margin">
+            <form class="uk-search uk-search-default uk-width-1-1 " id="search" action="/projects" method="GET">
+                <a href="javascript:;" onclick="document.getElementById('search').submit()" class="uk-search-icon-flip" uk-search-icon></a>
+                <input class="uk-search-input uk-width-1-1" name="filter" id="filter" type="search" placeholder="Төслийн нэр...">
+            </form>
+        </div>
+    </div>
+</div>
 <section class="uk-section uk-section-default">
     <div class="uk-container">
         <h1 class="uk-article-title">LOC үнэлгээнүүд</h1>
@@ -74,7 +84,7 @@
                             <div class="uk-text-bold">Шаардагдах хугацаа: </div>
                         </div>
                         <div class="uk-width-1-2">
-                            {{$loc->time}} сар 
+                            {{$loc->time}} сар
                         </div>
 
                         <div class="uk-width-1-2">
